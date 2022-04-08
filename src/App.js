@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {css} from 'styled-component';
+import styled from 'styled-components';
 
 const Circle = styled.div`
   width: 5rem;
@@ -8,7 +8,7 @@ const Circle = styled.div`
   border-radius: 50%;
 `;
 
-function App(props) {
+function App() {
   return (
     <Circle />
   );
