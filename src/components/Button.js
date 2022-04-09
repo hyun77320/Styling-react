@@ -13,30 +13,54 @@ const colorStyles = css`
             &:active {
                 background: ${darken(0.1, selected)};
             }
+            ${props =>
+                props.outline &&
+                css`
+                    color: $(selected);
+                    background: none;
+                    border: 1px solid ${selected};
+                    $:hover {
+                        background: ${selected};
+                        color: white;
+                    }
+                `
+            }
         `;
     }}
 `;
 
+const sizes = {
+    large: {
+        height: '3rem',
+        fontsize: '1.25rem'
+    },
+    medium: {
+        height: '2.25rem',
+        fontsize: '1rem'
+    },
+    samll: {
+        height: '1.75rem',
+        fontsize: '0.85rem'
+    }
+};
+
 const sizeStyles = css`
+    ${({ size}) => css`
+        height: ${sizes[size].height};
+        font-size: ${sizes[size].fontsize};
+    `}
+`;
+
+const fullWidthStyle = css`
     ${props =>
-        props.size === 'large' &&
+        props.fullWidth &&
         css`
-            height: 3rem;
-            font-size: 1.25rem;
-        `
-    }
-    ${props =>
-        props.size === 'medium' &&
-        css`
-            height: 2.25rem;
-            font-size: 1rem;
-        `
-    }
-    ${props =>
-        props.size === 'small' &&
-        css`
-            height: 1.75rem;
-            font-size: 0.85rem;
+            width: 100%;
+            justify-content: center;
+            & + & {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
         `
     }
 `
@@ -66,9 +90,17 @@ const StyledButton = styled.button`
     }
 `;
 
-function Button({ children, ...rest }) {
+function Button({ children, color, size, outline, fullWidth, ...rest }) {
     return (
-        <StyledButton {...rest}>{children}</ StyledButton>
+        <StyledButton 
+            color={color} 
+            size={size} 
+            outline={outline}
+            fullWidth={fullWidth}
+            {...rest}
+        >
+            {children}
+        </ StyledButton>
     );
 }
 
